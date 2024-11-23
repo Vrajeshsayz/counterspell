@@ -4,7 +4,7 @@ import random
 
 # Initialize Pygame
 pygame.init()
-
+game_state = "game"
 # Set up the display
 WIDTH, HEIGHT = 1000, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -123,6 +123,7 @@ def draw_game_screen():
 
 # Function to draw the fight screen
 def draw_fight_screen():
+    game_state = "game"
     if game_state == "game":
         # Game logic here
         global x, y, player_health, ai_health, is_punching, is_kicking, kick_counter, punch_counter
@@ -202,158 +203,153 @@ def draw_fight_screen():
         ai_x += ai_velocity_x
 
     # AI decision to attack
-    attack_range = 100  # Define the attack range
-    if abs(ai_x - x) < attack_range:  # If the player is within the attack range
-        if not ai_is_punching and not ai_is_kicking:  # Ensure AI is not already attacking
-            if random.random() < 0.05:  # Random chance to attack
-                if random.random() < 0.5:  # 50% chance to punch
-                    ai_is_punching = True
-                    ai_punch_counter = punch_duration
-                else:  # 50% chance to kick
-                    ai_is_kicking = True
-                    ai_kick_counter = kick_duration
+        attack_range = 100  # Define the attack range
+        if abs(ai_x - x) < attack_range:  # If the player is within the attack range
+            if not ai_is_punching and not ai_is_kicking:  # Ensure AI is not already attacking
+                if random.random() < 0.05:  # Random chance to attack
+                    if random.random() < 0.5:  # 50% chance to punch
+                        ai_is_punching = True
+                        ai_punch_counter = punch_duration
+                    else:  # 50% chance to kick
+                        ai_is_kicking = True
+                        ai_kick_counter = kick_duration
 
     # Apply gravity for AI
-    ai_velocity_y += gravity
+        ai_velocity_y += gravity
 
     # Update AI position
-    ai_y += ai_velocity_y
+        ai_y += ai_velocity_y
 
     # Ground collision for AI
-    if ai_y >= ground:
-        ai_y = ground
-        ai_velocity_y = 0
-        ai_on_ground = True
+        if ai_y >= ground:
+            ai_y = ground
+            ai_velocity_y = 0
+            ai_on_ground = True
 
     # Update AI punch state
-    if ai_is_punching:
-        ai_punch_counter -= 1
-        if ai_punch_counter <= 0:
-            ai_is_punching = False
+        if ai_is_punching:
+            ai_punch_counter -= 1
+            if ai_punch_counter <= 0:
+                ai_is_punching = False
 
     # Update AI kick state
-    if ai_is_kicking:
-        ai_kick_counter -= 1
-        if ai_kick_counter <= 0:
-            ai_is_kicking = False
+        if ai_is_kicking:
+            ai_kick_counter -= 1
+            if ai_kick_counter <= 0:
+                ai_is_kicking = False
 
-    if is_punching and (abs(x - ai_x) < 40) and (abs(y - ai_y) < 100):
-        ai_health -= 0.5
-        is_punching = False  # Reset player punch
+        if is_punching and (abs(x - ai_x) < 40) and (abs(y - ai_y) < 100):
+            ai_health -= 0.5
+            is_punching = False  # Reset player punch
 
-    if is_kicking and abs(x - ai_x) < 40 and abs(y - ai_y) < 100:  # Player kicks AI
-        ai_health -= 1
-        is_kicking = False  # Reset player kick
+        if is_kicking and abs(x - ai_x) < 40 and abs(y - ai_y) < 100:  # Player kicks AI
+            ai_health -= 1
+            is_kicking = False  # Reset player kick
 
-    if ai_is_punching and abs(ai_x - x) < 40 and abs(ai_y - y) < 100:  # AI punches player
-        player_health -= 5
-        ai_is_punching = False  # Reset AI punch
+        if ai_is_punching and abs(ai_x - x) < 40 and abs(ai_y - y) < 100:  # AI punches player
+            player_health -= 5
+            ai_is_punching = False  # Reset AI punch
 
-    if ai_is_kicking and abs(ai_x - x) < 40 and abs(ai_y - y) < 100:  # AI kicks player
-        player_health -= 5
-        ai_is_kicking = False  # Reset AI kick
+        if ai_is_kicking and abs(ai_x - x) < 40 and abs(ai_y - y) < 100:  # AI kicks player
+            player_health -= 5
+            ai_is_kicking = False  # Reset AI kick
 
     # Fill the screen with white
-    screen.blit(background_fight, (0, 0))
+        screen.blit(background_fight, (0, 0))
     # Draw the humanoid character (player)
-    head_radius = 15
-    body_width = 20
-    body_height = normal_height if not is_crouching else crouch_height
+        head_radius = 15
+        body_width = 20
+        body_height = normal_height if not is_crouching else crouch_height
 
     # Draw player head
-    pygame.draw.circle(screen, BLUE, (int(x + body_width // 2), int(y - body_height - head_radius)), head_radius)
+        pygame.draw.circle(screen, BLUE, (int(x + body_width // 2), int(y - body_height - head_radius)), head_radius)
 
     # Draw player body
-    pygame.draw.rect(screen, BLUE, (x + body_width // 2 - body_width // 2, y - body_height, body_width, body_height))
+        pygame.draw.rect(screen, BLUE, (x + body_width // 2 - body_width // 2, y - body_height, body_width, body_height))
 
     # Draw player arms
-    arm_length = 40
-    if is_punching:
+        arm_length = 40
+        if is_punching:
         # Punching position
-        pygame.draw.line(screen, BLUE, (x + body_width // 2, y - (body_height // 2 + head_radius)),
-                         (x + body_width // 2 + arm_length * 1.5, y - (body_height // 2 + head_radius)), 5)
-    else:
+            pygame.draw.line(screen, BLUE, (x + body_width // 2, y - (body_height // 2 + head_radius)),
+                            (x + body_width // 2 + arm_length * 1.5, y - (body_height // 2 + head_radius)), 5)
+        else:
         # Normal arms position
-        pygame.draw.line(screen, BLUE, (x + body_width // 2 - arm_length, y - (body_height // 2 + head_radius)),
+            pygame.draw.line(screen, BLUE, (x + body_width // 2 - arm_length, y - (body_height // 2 + head_radius)),
                          (x + body_width // 2 + arm_length, y - (body_height // 2 + head_radius)), 5)
 
     # Draw player legs
-    leg_length = 100
-    if is_kicking:
+        leg_length = 100
+        if is_kicking:
         # Kicking position (extend the right leg)
-        pygame.draw.line(screen, BLUE, (x + body_width // 2, y),
+            pygame.draw.line(screen, BLUE, (x + body_width // 2, y),
                          (x + body_width // 2 + 30, y - 30), 5)  # Right leg extended for kick
-    else:
+        else:
         # Normal legs position
-        pygame.draw.line(screen, BLUE, (x + body_width // 2, y),
+            pygame.draw.line(screen, BLUE, (x + body_width // 2, y),
                          (x + body_width // 10, y + leg_length), 5)  # Left leg
-        pygame.draw.line(screen, BLUE, (x + body_width // 2, y),
+            pygame.draw.line(screen, BLUE, (x + body_width // 2, y),
                          (x + body_width // 10 + body_width, y + leg_length), 5)  # Right leg
 
     # Draw the AI character
-    ai_head_radius = 15
-    ai_body_width = 20
-    ai_body_height = normal_height
+        ai_head_radius = 15
+        ai_body_width = 20
+        ai_body_height = normal_height
 
     # Draw AI head
-    pygame.draw.circle(screen, GREEN, (int(ai_x + ai_body_width // 2), int(ai_y - ai_body_height - ai_head_radius)), ai_head_radius)
+        pygame.draw.circle(screen, GREEN, (int(ai_x + ai_body_width // 2), int(ai_y - ai_body_height - ai_head_radius)), ai_head_radius)
 
     # Draw AI body
-    pygame.draw.rect(screen, GREEN, (ai_x + ai_body_width // 2 - ai_body_width // 2, ai_y - ai_body_height, ai_body_width, ai_body_height))
+        pygame.draw.rect(screen, GREEN, (ai_x + ai_body_width // 2 - ai_body_width // 2, ai_y - ai_body_height, ai_body_width, ai_body_height))
 
     # Draw AI arms
-    ai_arm_length = 40
-    if ai_is_punching:
+        ai_arm_length = 40
+        if ai_is_punching:
         # Punching position
-        pygame.draw.line(screen, GREEN, (ai_x + ai_body_width // 2, ai_y - (ai_body_height // 2 + ai_head_radius)),
+            pygame.draw.line(screen, GREEN, (ai_x + ai_body_width // 2, ai_y - (ai_body_height // 2 + ai_head_radius)),
                          (ai_x + ai_body_width // 2 + ai_arm_length * 1.5, ai_y - (ai_body_height // 2 + ai_head_radius)), 5)
-    else:
+        else:
         # Normal arms position
-        pygame.draw.line(screen, GREEN, (ai_x + ai_body_width // 2 - ai_arm_length, ai_y - (ai_body_height // 2 + ai_head_radius)),
+            pygame.draw.line(screen, GREEN, (ai_x + ai_body_width // 2 - ai_arm_length, ai_y - (ai_body_height // 2 + ai_head_radius)),
                          (ai_x + ai_body_width // 2 + ai_arm_length, ai_y - (ai_body_height // 2 + ai_head_radius)), 5)
 
     # Draw AI legs
-    ai_leg_length = 100
-    if ai_is_kicking:
+        ai_leg_length = 100
+        if ai_is_kicking:
         # K icking position (extend the right leg)
-        pygame.draw.line(screen, GREEN, (ai_x + ai_body_width // 2, ai_y),
+            pygame.draw.line(screen, GREEN, (ai_x + ai_body_width // 2, ai_y),
                          (ai_x + ai_body_width // 2 + 30, ai_y - 30), 5)  # Right leg extended for kick
-    else:
+        else:
         # Normal legs position
-        pygame.draw.line(screen, GREEN, (ai_x + ai_body_width // 2, ai_y),
+            pygame.draw.line(screen, GREEN, (ai_x + ai_body_width // 2, ai_y),
                          (ai_x + ai_body_width // 10, ai_y + ai_leg_length), 5)  # Left leg
-        pygame.draw.line(screen, GREEN, (ai_x + ai_body_width // 2, ai_y),
+            pygame.draw.line(screen, GREEN, (ai_x + ai_body_width // 2, ai_y),
                          (ai_x + ai_body_width // 10 + ai_body_width, ai_y + ai_leg_length), 5)  # Right leg
 
     # Draw health bars
-    player_health_bar_length = 50
-    ai_health_bar_length = 50
-    player_health_ratio = player_health / 100
-    ai_health_ratio = ai_health / 100
+        player_health_bar_length = 50
+        ai_health_bar_length = 50
+        player_health_ratio = player_health / 100
+        ai_health_ratio = ai_health / 100
 
     # Player health bar in the top left corner
-    pygame.draw.rect(screen, BLACK, (10, 10, player_health_bar_length, 10))
-    pygame.draw.rect(screen, GREEN, (10, 10, player_health_bar_length * player_health_ratio, 10))
-    player_health_label = font.render("Player Health", True, BLACK)
-    screen.blit(player_health_label, (30, 25))
+        pygame.draw.rect(screen, BLACK, (10, 10, player_health_bar_length, 10))
+        pygame.draw.rect(screen, GREEN, (10, 10, player_health_bar_length * player_health_ratio, 10))
+        player_health_label = font.render("Player Health", True, WHITE)
+        screen.blit(player_health_label, (30, 25))
 
     # AI health bar in the top right corner
-    pygame.draw.rect(screen, BLACK, (WIDTH - 310, 10, ai_health_bar_length, 10))
-    pygame.draw.rect(screen, GREEN, (WIDTH - 310, 10, ai_health_bar_length * ai_health_ratio, 10))
-    ai_health_label = font.render("AI Health", True, BLACK)
-    screen.blit(ai_health_label, (WIDTH - 310, 25))
+        pygame.draw.rect(screen, BLACK, (WIDTH - 310, 10, ai_health_bar_length, 10))
+        pygame.draw.rect(screen, GREEN, (WIDTH - 310, 10, ai_health_bar_length * ai_health_ratio, 10))
+        ai_health_label = font.render("AI Health", True, WHITE)
+        screen.blit(ai_health_label, (WIDTH - 310, 25))
 
-    if player_health <= 0:
-        print("Game Over! The computer has defeated you.")
-        pygame.quit()
-        sys.exit()
-    if ai_health <= 0:
-        print("You have defeated the computer!")
-        # Check for win/lose conditions
-    if player_health <= 0:
-        game_state = "lose"
-    elif ai_health <= 0:
-        game_state = "win"
+        if player_health <= 0:
+            print("Game Over! The computer has defeated you.")
+            game_state = "lose"
+        if ai_health <= 0:
+            print("You have defeated the computer!")
+            game_state = "win"
 def draw_info_screen():
     screen.blit(background_info, (0, 0))
     font = pygame.font.Font(None, 74)
@@ -384,7 +380,6 @@ current_screen = "home"
 back_button_info = None
 
 running = True
-game_state = "home"
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
