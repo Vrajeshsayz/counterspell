@@ -1,0 +1,28 @@
+Game Ideas:
+    - Shadow Duel:
+            - Players select their own strengths
+            - The opponents strong points are your weaknesses
+            - Your pros outweigh your cons
+            - Quote on homescreen: "Everyone has their weaknesses, it depends how you overcome them"
+            - Keymaps:
+                    - W jump
+                    - D move right
+                    - A move left
+                    - S crouch
+                    - P punch
+                    - K kick
+                    - Space power move
+            - If someone crouches, and the opponent punches,
+
+            - 3 character options
+                - power punch - 2x damage
+                - power kick - 2x damage
+                - high speed - teleporation + super punch
+            - under each character, there is a pros cons table
+            - if punch is missed, the person freezes
+
+
+
+
+
+louisa@hackclub.com
