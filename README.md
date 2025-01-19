@@ -20,10 +20,10 @@ Counterspell is a game built with passion and creativity, this project demonstra
 
 Copy the code from main.py and paste onto your IDE. Thereafter, press run and enjoy the game. 
 
-💡 Inspiration
+## 💡 Inspiration
 This game was inspired by the idea of creating an immersive and strategic gameplay experience while working within the time constraints of a hackathon. It reflects my passion for game development and my continuous effort to learn and improve.
 
-📈 Future Plans
+## 📈 Future Plans
 Add more levels and spells
 Make the superpowers work
 Improve graphics and animations
