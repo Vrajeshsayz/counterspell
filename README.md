@@ -1,6 +1,6 @@
 # Counterspell Game
 
-Welcome to **Counterspell**, a game designed and developed during the Counterspell hackathon! This project was a fun and challenging way to combine creativity and coding, showcasing the power of teamwork and innovation.
+Welcome to **You vs You**, a game designed and developed during the Counterspell hackathon! This project was a fun and challenging way to combine creativity and coding, showcasing the power of teamwork and innovation.
 
 ## 🎮 About the Game
 
@@ -10,14 +10,11 @@ Counterspell is a game built with passion and creativity, this project demonstra
 
 - Engaging and interactive gameplay
 - Unique spell mechanics
-- Dynamic visuals and sound effects (if applicable)
-- [Add any other features specific to your game]
 
 ## 🚀 Technologies Used
 
-- Programming Language: [e.g., Python, JavaScript, etc.]
-- Frameworks/Libraries: [e.g., Pygame, Phaser.js, etc.]
-- Other Tools: [e.g., Unity, Godot, etc.]
+- Programming Language: Python
+- Frameworks/Libraries: Pygame
 
 ## 🛠 How to Play
 
@@ -28,6 +25,7 @@ This game was inspired by the idea of creating an immersive and strategic gamepl
 
 📈 Future Plans
 Add more levels and spells
+Make the superpowers work
 Improve graphics and animations
 Implement multiplayer mode
 
